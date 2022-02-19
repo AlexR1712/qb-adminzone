@@ -70,11 +70,10 @@ end
 
 function ZoneAdded()
 	Citizen.CreateThread(function () 
-		print (#zones)
 		if #zones < 2 then
 			while #zones > 0 do
 				 for k,v in pairs(zones) do
-					if GetDistanceBetweenCoords(v.coord, GetEntityCoords(GetPlayerPed(-1))) <= 100 then
+					if GetDistanceBetweenCoords(v.coord, GetEntityCoords(PlayerPedId())) <= 100 then
 						if inZone == nil then
 							ShowNotif(Config.enterText)
 							TriggerEvent('adminzone:inZone', v.coord, Config.pass)
@@ -118,7 +117,7 @@ AddEventHandler("adminzone:getCoords", function(command, pass)
 end)
     
 	
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function(xPlayer)
 	TriggerServerEvent('adminzone:ServerUpdateZone')
 end)
